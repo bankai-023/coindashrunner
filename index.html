@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Coin Dash Runner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Main Menu -->
+        <div id="menu-view" class="view active">
+            <h1 class="title">COIN DASH<br><span class="subtitle">RUNNER</span></h1>
+            <p class="blink">INSERT COIN TO START</p>
+            <div class="menu-buttons">
+                <button onclick="startGame()" class="btn btn-primary">START GAME</button>
+                <button onclick="showView('shop-view')" class="btn btn-secondary">SHOP</button>
+                <div class="btn-group">
+                    <button onclick="showView('controls-view')" class="btn btn-accent btn-sm">CONTROLS</button>
+                    <button onclick="showView('about-view')" class="btn btn-outline btn-sm">ABOUT</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Canvas -->
+        <div id="game-view" class="view">
+            <div id="hud">
+                <div class="stats">
+                    <div id="score-display">SCORE: 0</div>
+                    <div id="lives-display">LIVES: ❤️❤️❤️</div>
+                </div>
+                <div id="powerup-indicators"></div>
+            </div>
+            <canvas id="gameCanvas"></canvas>
+            <div id="mobile-controls">
+                <div class="move-btns">
+                    <button id="left-btn" class="ctrl-btn"><svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="2" fill="none"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+                    <button id="right-btn" class="ctrl-btn"><svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+                </div>
+                <button id="pause-btn" class="ctrl-btn"><svg id="pause-icon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg></button>
+            </div>
+            <button onclick="showView('menu-view')" class="btn btn-destructive btn-sm quit-btn">QUIT</button>
+        </div>
+
+        <!-- Shop -->
+        <div id="shop-view" class="view">
+            <div class="view-header">
+                <button onclick="showView('menu-view')" class="btn btn-outline btn-sm">BACK</button>
+                <div class="currency"><span id="points-display">0</span> PTS</div>
+            </div>
+            <div class="shop-grid">
+                <div class="shop-item">
+                    <div class="icon">❤️</div>
+                    <h3>Extra Life</h3>
+                    <p>Adds +1 life</p>
+                    <button onclick="buyItem('extraLife', 50)" class="btn btn-secondary btn-sm" id="buy-extraLife">50 PTS</button>
+                </div>
+                <div class="shop-item">
+                    <div class="icon">🧲</div>
+                    <h3>Magnet</h3>
+                    <p>Attracts coins</p>
+                    <button onclick="buyItem('magnet', 100)" class="btn btn-secondary btn-sm" id="buy-magnet">100 PTS</button>
+                </div>
+                <div class="shop-item">
+                    <div class="icon">⚡</div>
+                    <h3>Speed</h3>
+                    <p>Double speed</p>
+                    <button onclick="buyItem('speed', 75)" class="btn btn-secondary btn-sm" id="buy-speed">75 PTS</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Views -->
+        <div id="about-view" class="view info-view">
+            <div class="card">
+                <h2>ABOUT</h2>
+                <p>Coin Dash Runner is a high-octane arcade experience.</p>
+                <p class="highlight">GOAL: Collect coins, avoid missing them!</p>
+                <button onclick="showView('menu-view')" class="btn btn-outline btn-sm">BACK</button>
+            </div>
+        </div>
+
+        <div id="controls-view" class="view info-view">
+            <div class="card">
+                <h2>CONTROLS</h2>
+                <div class="control-list">
+                    <div><span>⬅️ / A</span> Move Left</div>
+                    <div><span>➡️ / D</span> Move Right</div>
+                    <div><span>SPACE</span> Pause</div>
+                </div>
+                <button onclick="showView('menu-view')" class="btn btn-outline btn-sm">BACK</button>
+            </div>
+        </div>
+
+        <div id="gameover-view" class="view info-view">
+            <div class="card">
+                <h2 class="dead">GAME OVER</h2>
+                <div class="final-score">SCORE: <span id="final-score-val">0</span></div>
+                <div class="menu-buttons">
+                    <button onclick="startGame()" class="btn btn-primary">RETRY</button>
+                    <button onclick="showView('menu-view')" class="btn btn-outline">MENU</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="scanline"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
